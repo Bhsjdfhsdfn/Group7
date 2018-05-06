@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>register</title>
+<script type="text/javascript" src="jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="jquery.form.js"></script>
+</head>
+<body>
+	  <p>username: <input id="name" name="name" type="text" name="name" /></p>
+	  <p>password: <input id="password" name="password" type="text" name="password" /></p>
+	  <p>age: <input id="age" name="age" type="text" name="age" /></p>
+	  <button id="button" name="button">注册</button>
+	<script type="application/javascript">
+    //发送表单ajax请求
+    $("button").click(function(){
+    	var name = $("input[name='name']").val();
+        var password = $("input[name='password']").val();
+        var age = $("input[name='age']").val();
+        var str = '{"name":' + name + ',"password":' + password + ',"age":' + age +'}';
+        $.ajax({
+            url:"http://localhost:8080/student-test/student/register",
+            type:"POST",
+            dataType:"text",
+            contentType : 'application/json;charset=utf-8',
+            data:str,
+            success:function(data){
+            	/* window.open('http://localhost:8080/student/registerSuccess.html'); */
+            	window.location.href='http://localhost:8080/student/registerSuccess.html'
+            },
+            error : function(XMLHttpRequest, textStatus, errorThrown) {
+            	/* window.open('http://localhost:8080/student/registerSuccess.html'); */
+            	window.location.href='http://localhost:8080/student/registerFailed.html'
+            }
+        });
+	});
+
+    /**
+     * 自动将form表单封装成json对象
+     */
+    $.fn.serializeObject = function() {
+        var o = {};
+        var a = this.serializeArray();
+        $.each(a, function() {
+            if (o[this.name]) {
+                if (!o[this.name].push) {
+                    o[this.name] = [ o[this.name] ];
+                }
+                o[this.name].push(this.value || '');
+            } else {
+                o[this.name] = this.value || '';
+            }
+        });
+        return o;
+    };
+</script>
+	<script type="text/javascript">
+	/* $(document).ready(function() {  
+	       $("#registerForm").ajaxForm(function(data){  
+	        	$(window).attr('location','registerSuccess.html') 
+	       });            
+	});  */
+	</script>
+
+</body>
+</html>

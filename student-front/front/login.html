@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>login</title>
+<script type="text/javascript" src="jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="jquery.form.js"></script>
+</head>
+<body>
+	<form id="loginForm" name="loginForm" action="http://localhost:8080/student-test/student/login" method="get">
+	  <p>username: <input type="text" name="username" /></p>
+	  <p>password: <input type="text" name="password" /></p>
+	  <input type="submit" value="登录" />
+	</form>
+	<button onclick="window.location.href='register.html'">注册</button>
+	
+	<script type="text/javascript">
+	$(document).ready(function() {  
+	       $("#loginForm").ajaxForm(function(data){  
+	           if(data == 'success') {
+	        	   $(window).attr('location','loginSuccess.html') 
+	           } else {
+	        	   $(window).attr('location','loginFailed.html') 
+	           }
+	       });            
+	}); 
+	</script>
+</body>
+</html>
